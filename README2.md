@@ -2,14 +2,14 @@
 
 ## Getting Started
 
-This project is a Mini App sample project. It is based on [Next.js](https://nextjs.org/), and styled with [Tailwind CSS](https://tailwindcss.com/).
+This project is a Mini App sample project based on [Next.js](https://nextjs.org/) and styled with [Tailwind CSS](https://tailwindcss.com/).
 
 ### Prerequisites
 
-Before running the Mini App sample, ensure you have the following software installed:
+Before running the Mini App sample, make sure you have the following software installed:
 
 - [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), [pnpm](https://pnpm.io/), or [bun](https://bun.sh/)
+- Choose one of the following package managers: [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), [pnpm](https://pnpm.io/), or [bun](https://bun.sh/)
 
 ### Setting Up the Development Environment
 
@@ -87,19 +87,11 @@ During development, if you need to debug your application within the Mini App we
 
 By following these steps, you can effectively test your Mini App in a real-time environment, ensuring that it works as expected when deployed.
 
-<!-- ### Mini App JSBridge
-
-Mini App JSBridge facilitates seamless communication between web views and native applications within mobile development. It acts as a vital intermediary, enabling JavaScript running in a web view to interact with native device functionalities. This bridge enhances the Mini App's capabilities by integrating web-based features with native device features.
-
-For detailed documentation on each function provided by Mini App JSBridge, visit the [Mini App JSBridge Documentation](https://example-jsbridge-docs.com).
-
-#### Usage in Sample Project -->
-
 ### Mini App JSBridge
 
-In this sample project, we use the `initAuth` function as an example. This function is initiate the process to authenticate the user with the Paotang PASS and authorize your app.
+In this sample project, we demonstrate the `initAuth` function. This function initiates the process to authenticate the user with Paotang PASS and authorize your app.
 
-The integration of `initAuth` showcases a common use case where your Mini App require user authentication to access some personalized features or protected route within the app.
+The integration of `initAuth` showcases a common use case where your Mini App requires user authentication to access personalized features or protected routes within the app.
 
 ```javascript
 initAuth(
