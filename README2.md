@@ -89,28 +89,86 @@ By following these steps, you can effectively test your Mini App in a real-time 
 
 ### Mini App JSBridge
 
+<!-- ##### Setting Up the JSBridge -->
+
+Before using JSBridge functions, you neet a few steps to set up the JSBridge in your Mini App project.
+
+1. **Declare Window type (Typescript only)**
+
+   In your Mini App project, declare the `window` type in `index.d.ts` file
+
+   ```typescript
+   interface Window {
+      JSBridge: any;
+      webkit: any;
+      bridge: any;
+   }
+   ```
+
+2. **Init bridge object**
+
+   In your Mini App project, create a global `bridge` object to store the callback functions for JSBridge functions.
+
+   ```javascript
+   window.bridge = {
+      initAuthCallback: null,
+      initAuthCallbackError: null,
+      // Add more callback functions here
+   };
+   ```
+
+   **Note:** Make sure window.bridge already exists before calling any JSBridge functions.
+
 In this sample project, we demonstrate the `initAuth` function. This function initiates the process to authenticate the user with Paotang PASS and authorize your app.
 
 The integration of `initAuth` showcases a common use case where your Mini App requires user authentication to access personalized features or protected routes within the app.
 
+
+#### Using JSBridge Functions
+
+We have prepared the core functions for calling `initAuth` in the [JSBridge Specifications](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications#initAuth). You can use these functions to integrate the JSBridge into your Mini App project.
+
+```javascript
+const initAuth = (
+  callback: (authorizationCode: string) => void,
+  callbackError: (errorCode: string, errorDescription: string) => void
+) => {
+  if (window.JSBridge) {
+    // For Android
+    window.bridge.initAuthCallback = callback;
+    window.bridge.initAuthCallbackError = callbackError;
+    window.JSBridge.initAuth?.();
+  } else if (window.webkit) {
+    // For iOS
+    window.bridge.initAuthCallback = callback;
+    window.bridge.initAuthCallbackError = callbackError;
+    const message = { name: "initAuth" };
+    window.webkit.messageHandlers.observer.postMessage(message);
+  }
+};
+
+export default initAuth;
+```
+
+Usage:
+
 ```javascript
 initAuth(
-      //callback function for success
-      (authorizationCode: string) => {
-        /*
-          Logic to handle the authorization code received from the native app
-          after successful authentication
-        */
-        
-      },
-      //callback function for error
-      (errorCode, errorDescription) => {
-        /*
-          Logic to handle the error received from the native app 
-          after failed authentication
-        */
-      }
-    )
+  // Callback function for success
+  (authorizationCode: string) => {
+    /*
+      Logic to handle the authorization code received from the native app
+      after successful authentication
+    */
+  },
+  // Callback function for error
+  (errorCode, errorDescription) => {
+    /*
+      Logic to handle the error received from the native app 
+      after failed authentication
+    */
+  }
+);
 ```
 
 For more information on available JSBridge functions and specifications, please refer to the [Mini App JSBridge Documentation](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications).
