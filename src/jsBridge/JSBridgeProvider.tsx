@@ -8,6 +8,9 @@ type propsType = {
 /*
   JSBridgeProvider is a React Context Provider component that initializes the bridge object 
   for communication between the webview and your Mini App.
+
+  **If the bridge object is not initialized, communication with webview will not 
+  be possible because the bridge object will be undefined.**
 */
 
 export default function JSBridgeProvider({ children }: propsType) {
