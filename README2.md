@@ -1,8 +1,8 @@
-## Mini App Sample Project
+# Mini App Sample Project
 
-### Getting Started
+## Getting Started
 
-This project is a Mini App sample project. It is based on [Next.js](https://nextjs.org/), a React framework, and styled with [Tailwind CSS](https://tailwindcss.com/).
+This project is a Mini App sample project. It is based on [Next.js](https://nextjs.org/), and styled with [Tailwind CSS](https://tailwindcss.com/).
 
 ### Prerequisites
 
@@ -16,7 +16,7 @@ Before running the Mini App sample, ensure you have the following software insta
 1. **Clone the Sample Repository**
 
    ```bash
-   git clone https://github.com/paotang-miniapp/miniapp-example &&
+   git clone https://github.com/paotang-miniapp/miniapp-example
    cd miniapp-sample-repo
    ```
 
@@ -48,24 +48,15 @@ Before running the Mini App sample, ensure you have the following software insta
 
    Open [http://localhost:3000](http://localhost:3000) to see the result.
 
+### Using Ngrok with Your Mini App
 
-### Develop on Ngrok
+During development, if you need to debug your application within the Mini App webview, you can use Ngrok to make your local server accessible over the internet. This enables real-time testing and debugging of your Mini App.
 
-When developing a Mini App on the Paotang app, you can test your Mini App in real-time by exposing your local server to the internet using Ngrok.
+#### Step-by-Step Guide
 
-1. **Install Ngrok**
+1. **Run the Mini App Sample**
 
-   ```bash
-   npm install -g ngrok
-   # or
-   yarn global add ngrok
-   # or
-   pnpm install -g ngrok
-   # or
-   bun install -g ngrok
-   ```
-
-2. **Run the Mini App Sample**
+   Start the development server:
 
    ```bash
    npm run dev
@@ -77,24 +68,57 @@ When developing a Mini App on the Paotang app, you can test your Mini App in rea
    bun dev
    ```
 
-3. **Expose Your Local Server**
+2. **Expose Your Local Server with Ngrok**
+
+   Open a new terminal window and run Ngrok to expose your local server:
 
    ```bash
    ngrok http 3000
    ```
 
-   After executing this command, Ngrok will provide you with a public URL. Use this URL to test your Mini App in real-time. Remember to update the Mini App Redirect URL in the Mini App Portal with this Ngrok URL, and also include it as the callback URL for your Paotang Pass clientId configulation.
+   Ngrok will provide you with a public URL that tunnels to your local server. This URL can be used to access your Mini App from any device.
 
-   ```bash
+   > **Note:** If you haven't installed Ngrok yet, please refer to the [Ngrok documentation](https://ngrok.com/docs) for installation instructions.
 
+3. **Update Your Mini App Configuration**
 
-### Deploy on Vercel
+   - **Mini App Redirect URL:** Update the Mini App Redirect URL in the Mini App Portal with the public URL provided by Ngrok.
+   - **Paotang Pass Callback URL:** Include the Ngrok URL as the callback URL in your Paotang Pass clientId configuration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+By following these steps, you can effectively test your Mini App in a real-time environment, ensuring that it works as expected when deployed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<!-- ### Mini App JSBridge
 
+Mini App JSBridge facilitates seamless communication between web views and native applications within mobile development. It acts as a vital intermediary, enabling JavaScript running in a web view to interact with native device functionalities. This bridge enhances the Mini App's capabilities by integrating web-based features with native device features.
 
----
+For detailed documentation on each function provided by Mini App JSBridge, visit the [Mini App JSBridge Documentation](https://example-jsbridge-docs.com).
 
-With these instructions, you can set up, run, and develop your Mini App project using both Vercel and Ngrok, ensuring a seamless development and deployment experience.
+#### Usage in Sample Project -->
+
+### Mini App JSBridge
+
+In this sample project, we use the `initAuth` function as an example. This function is initiate the process to authenticate the user with the Paotang PASS and authorize your app.
+
+The integration of `initAuth` showcases a common use case where your Mini App require user authentication to access some personalized features or protected route within the app.
+
+```javascript
+initAuth(
+      //callback function for success
+      (authorizationCode: string) => {
+        /*
+          Logic to handle the authorization code received from the native app
+          after successful authentication
+        */
+        
+      },
+      //callback function for error
+      (errorCode, errorDescription) => {
+        /*
+          Logic to handle the error received from the native app 
+          after failed authentication
+        */
+      }
+    )
+```
+
+For more information on available JSBridge functions and specifications, please refer to the [Mini App JSBridge Documentation](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications).
