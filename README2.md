@@ -89,13 +89,13 @@ By following these steps, you can effectively test your Mini App in a real-time 
 
 ### Mini App JSBridge
 
-<!-- ##### Setting Up the JSBridge -->
+#### Setting Up JSBridge
 
-Before using JSBridge functions, you neet a few steps to set up the JSBridge in your Mini App project.
+Before using JSBridge functions, you need to set up JSBridge in your Mini App project with a few essential steps.
 
-1. **Declare Window type (Typescript only)**
+1. **Declare Window Type (***TypeScript Only***)**
 
-   In your Mini App project, declare the `window` type in `index.d.ts` file
+   In your Mini App project, declare the `window` type in the `index.d.ts` file:
 
    ```typescript
    interface Window {
@@ -105,24 +105,19 @@ Before using JSBridge functions, you neet a few steps to set up the JSBridge in 
    }
    ```
 
-2. **Init bridge object**
+2. **Initialize Bridge Object**
 
-   In your Mini App project, create a global `bridge` object to store the callback functions for JSBridge functions.
+   Create a global `bridge` object in your Mini App project to store callback functions for JSBridge operations:
 
    ```javascript
    window.bridge = {
       initAuthCallback: null,
       initAuthCallbackError: null,
-      // Add more callback functions here
+      // Add more callback functions as needed
    };
    ```
 
-   **Note:** Make sure window.bridge already exists before calling any JSBridge functions.
-
-In this sample project, we demonstrate the `initAuth` function. This function initiates the process to authenticate the user with Paotang PASS and authorize your app.
-
-The integration of `initAuth` showcases a common use case where your Mini App requires user authentication to access personalized features or protected routes within the app.
-
+   **Note:** Ensure that `window.bridge` is initialized before calling any JSBridge functions.
 
 #### Using JSBridge Functions
 
