@@ -168,7 +168,7 @@ initAuth(
 
 In this sample project, we demonstrate how to use `initAuth` for user authentication before accessing the app. We have created an `/init` page to handle the various logic for initializing authentication before entering the main app page.
 
-Therefore, we need to set the Mini App Redirect URL to `https://<app-domain>/init` so that the Mini App webview opens this page first (which you might implement as a loading or splash screen).
+Therefore, we need to set the Mini App Redirect URL to `https://<app-domain>/init` so that the Mini App webview opens this page first (which you might implement as a loading screen or splash screen).
 
 Once the `initAuth` process is successful, the system will redirect the user to the main page of the application with the `authorizationCode` received from `initAuth`.
 
