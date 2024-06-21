@@ -109,7 +109,7 @@ Before using JSBridge functions, you need to set up JSBridge in your Mini App pr
 
    Create a global `bridge` object in your Mini App project to store callback functions for JSBridge operations:
 
-   ```javascript
+   ```typescript
    window.bridge = {
       initAuthCallback: null,
       initAuthCallbackError: null,
@@ -123,7 +123,7 @@ Before using JSBridge functions, you need to set up JSBridge in your Mini App pr
 
 We have prepared the core functions for calling `initAuth` in the [JSBridge Specifications](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications#initAuth). You can use these functions to integrate the JSBridge into your Mini App project.
 
-```javascript
+```typescript
 const initAuth = (
   callback: (authorizationCode: string) => void,
   callbackError: (errorCode: string, errorDescription: string) => void
@@ -147,7 +147,7 @@ export default initAuth;
 
 Usage:
 
-```javascript
+```typescript
 initAuth(
   // Callback function for success
   (authorizationCode: string) => {
@@ -165,5 +165,11 @@ initAuth(
   }
 );
 ```
+
+In this sample project, we demonstrate how to use `initAuth` for user authentication before accessing the app. We have created an `/init` page to handle the various logic for initializing authentication before entering the main app page.
+
+Therefore, we need to set the Mini App Redirect URL to `https://<app-domain>/init` so that the Mini App webview opens this page first (which you might implement as a loading or splash screen).
+
+Once the `initAuth` process is successful, the system will redirect the user to the main page of the application with the `authorizationCode` received from `initAuth`.
 
 For more information on available JSBridge functions and specifications, please refer to the [Mini App JSBridge Documentation](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications).
