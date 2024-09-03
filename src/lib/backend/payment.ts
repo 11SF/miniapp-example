@@ -1,4 +1,4 @@
-import { LibError } from "./error/lib-error";
+import { LibError } from "../error/lib-error";
 import {
   generateDeeplinkConfigSchema,
   GenerateDeeplinkRequest,

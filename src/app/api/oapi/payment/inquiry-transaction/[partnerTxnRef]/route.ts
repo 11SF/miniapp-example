@@ -1,7 +1,7 @@
-import { LibError } from "@/app/api/lib/error/lib-error";
 import { transactionStorage } from "@/app/api/lib/mock-storage";
-import { inquiryTransaction } from "@/app/api/lib/payment";
-import { responseError, responseSuccess } from "@/app/api/lib/response";
+import { inquiryTransaction } from "@/lib/backend/payment";
+import { responseError, responseSuccess } from "@/lib/backend/response";
+import { LibError } from "@/lib/error/lib-error";
 
 export async function POST(
   request: Request,

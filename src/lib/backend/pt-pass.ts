@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { LibError } from "./error/lib-error";
+import { LibError } from "../error/lib-error";
 import {
   exchangeTokenConfigSchema,
   ExchangeTokenRequest,

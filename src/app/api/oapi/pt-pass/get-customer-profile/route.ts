@@ -1,5 +1,5 @@
-import { getCustomerProfile } from "@/app/api/lib/pt-pass";
-import { responseError, responseSuccess } from "@/app/api/lib/response";
+import { getCustomerProfile } from "@/lib/backend/pt-pass";
+import { responseError, responseSuccess } from "@/lib/backend/response";
 
 export async function POST(request: Request) {
   try {
