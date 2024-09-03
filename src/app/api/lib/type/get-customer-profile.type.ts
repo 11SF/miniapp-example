@@ -1,22 +1,31 @@
 import { z } from "zod";
 
-export const ExternalGetCustomerProfileRequest = z.object({
+export const getCustomerProfileRequestSchema = z.object({
   accessToken: z.string({ message: "missing access token" }),
+});
+
+export const getCustomerProfileConfigSchema = z.object({
   getCustomerProfileUrl: z
     .string({
       message:
-        "GET_CUSTOMER_PROFILE_URL is not defined in environment variable",
+        "URL_GET_CUSTOMER_PROFILE is not defined in environment variable",
     })
-    .url({ message: "GET_CUSTOMER_PROFILE_URL is not a valid URL" }),
+    .url({ message: "URL_GET_CUSTOMER_PROFILE is not a valid URL" }),
 });
 
-export interface ExternalGetCustomerProfileResponse {
+export type GetCustomerProfileConfig = z.infer<
+  typeof getCustomerProfileConfigSchema
+>;
+export type GetCustomerProfileRequest = z.infer<
+  typeof getCustomerProfileRequestSchema
+>;
+export type GetCustomerProfileResponse = {
   code: string;
   message: string;
-  data?: ExternalGetCustomerProfileResponseData;
-}
+  data?: CustomerProfile;
+};
 
-export interface ExternalGetCustomerProfileResponseData {
+export type CustomerProfile = {
   birthDate?: string;
   cid?: string;
   email?: string;
@@ -29,21 +38,21 @@ export interface ExternalGetCustomerProfileResponseData {
   officeAddress?: OfficeAddress;
   title?: string;
   workProfile?: WorkProfile;
-}
+};
 
-export interface FullNameEn {
+type FullNameEn = {
   engFirstName: string;
   engLastName: string;
   engMiddleName: string;
-}
+};
 
-export interface FullNameTh {
+type FullNameTh = {
   thaiFirstName: string;
   thaiLastName: string;
   thaiMiddleName: string;
-}
+};
 
-export interface LegalAddress {
+type LegalAddress = {
   address: string;
   country: string;
   district: string;
@@ -54,9 +63,9 @@ export interface LegalAddress {
   stateProvCode: string;
   subDistrict: string;
   subDistrictCode: string;
-}
+};
 
-export interface MailingAddress {
+type MailingAddress = {
   address: string;
   country: string;
   district: string;
@@ -67,9 +76,9 @@ export interface MailingAddress {
   stateProvCode: string;
   subDistrict: string;
   subDistrictCode: string;
-}
+};
 
-export interface OfficeAddress {
+type OfficeAddress = {
   address: string;
   country: string;
   district: string;
@@ -82,9 +91,9 @@ export interface OfficeAddress {
   stateProvCode: string;
   subDistrict: string;
   subDistrictCode: string;
-}
+};
 
-export interface WorkProfile {
+type WorkProfile = {
   occupationCode: string;
   occupationGroup: string;
   occupationGroupValue: string;
@@ -93,4 +102,4 @@ export interface WorkProfile {
   salaryValue: string;
   subOccupationGroup: string;
   subOccupationGroupValue: string;
-}
+};

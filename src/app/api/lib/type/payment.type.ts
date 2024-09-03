@@ -1,17 +1,6 @@
 import { z } from "zod";
 
-export const ExternalGenerateDeeplinkConfig = z.object({
-  generateDeeplinkUrl: z
-    .string({
-      message: "PAYMENT_DEEPLINK_URL is not defined in environment variable",
-    })
-    .url({ message: "PAYMENT_DEEPLINK_URL is not a valid URL" }),
-  accessToken: z.string().startsWith("Bearer "),
-  miniappUUID: z.string().uuid(),
-  deeplinkUrl: z.string().url(),
-});
-
-export const ExternalGenerateDeeplinkRequest = z.object({
+export const paymentTransactionSchema = z.object({
   partnerTxnCreatedDt: z.string().datetime().default(new Date().toISOString()),
   txnSessionValidUntil: z.string().datetime().optional(),
   paymentInfo: z.object({
@@ -43,16 +32,4 @@ export const ExternalGenerateDeeplinkRequest = z.object({
   }),
 });
 
-export interface ExternalGenerateDeeplinkResponse {
-  status?: Status;
-  appToAppDeeplinkUrl?: string;
-  deeplinkUrl?: string;
-  txnRefId?: string;
-  code?: string;
-  message?: string;
-}
-
-interface Status {
-  code: string;
-  description: string;
-}
+export type PaymentTransaction = z.infer<typeof paymentTransactionSchema>;
