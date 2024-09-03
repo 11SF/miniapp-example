@@ -1,3 +1,21 @@
+/*
+  For ingratiation with Payment API
+  we provide 2 functions to generate deeplink and inquiry transaction
+
+  - generateDeeplink(req: GenerateDeeplinkRequest): Promise<GenerateDeeplinkResponse>
+  - inquiryTransaction(txnRefId: string): Promise<InquiryTransactionResponse>
+
+  Please set the following environment variables before using the functions:
+  - TWO_LEGGED_CLIENT_ID
+  - TWO_LEGGED_SECRET_KEY
+  - URL_PAYMENT_GET_TOKEN
+  - URL_PAYMENT_DEEPLINK
+  - URL_PAYMENT_INQUIRY_TRANSACTION_URL
+  - PAYMENT_TXN_CONFIG_DEEPLINK_URL
+  - PAYMENT_TXN_CONFIG_COMP_CODE
+  - MINIAPP_UUID
+*/
+
 import { LibError } from "../error/lib-error";
 import {
   generateDeeplinkConfigSchema,

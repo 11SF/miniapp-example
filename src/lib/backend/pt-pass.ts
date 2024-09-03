@@ -1,3 +1,19 @@
+/*
+  For ingratiation with PT Pass API
+  we provide 2 functions to exchange token and get customer profile
+
+  - exchangeToken(req: ExchangeTokenRequest): Promise<ExchangeTokenResponse>
+  - getCustomerProfile(accessToken: string): Promise<GetCustomerProfileResponse>
+
+  Please set the following environment variables before using the functions:
+  - THREE_LEGGED_CLIENT_ID
+  - THREE_LEGGED_SECRET_KEY
+  - AUTHENTICATION_REDIRECT_URL
+  - AUTHENTICATION_SCOPE
+  - URL_EXCHANGE_TOKEN
+  - URL_GET_CUSTOMER_PROFILE
+*/
+
 import { randomUUID } from "crypto";
 import { LibError } from "../error/lib-error";
 import {
