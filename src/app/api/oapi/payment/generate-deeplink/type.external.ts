@@ -8,6 +8,7 @@ export const ExternalGenerateDeeplinkConfig = z.object({
     .url({ message: "PAYMENT_DEEPLINK_URL is not a valid URL" }),
   accessToken: z.string().startsWith("Bearer "),
   miniappUUID: z.string().uuid(),
+  deeplinkUrl: z.string().url(),
 });
 
 export const ExternalGenerateDeeplinkRequest = z.object({

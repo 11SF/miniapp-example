@@ -17,6 +17,7 @@ export async function POST(request: Request) {
     generateDeeplinkUrl: process.env.PAYMENT_DEEPLINK_URL,
     accessToken: request.headers.get("Authorization"),
     miniappUUID: process.env.MINIAPP_UUID,
+    deeplinkUrl: process.env.PAYMENT_TXN_CONFIG_DEEPLINK_URL,
   });
 
   if (!generateDeeplinkConfig.success) {
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
     partnerTxnCreatedDt: new Date().toISOString(),
     paymentInfo: {
       partnerTxnRef: partnerTxnRef,
-      compCode: process.env.COMP_CODE,
+      compCode: process.env.PAYMENT_TXN_CONFIG_COMP_CODE,
       amount: req.amount,
       ref1value: partnerTxnRef,
     },
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
       additionalInfo8: "BACK_TO_MINIAPP",
     },
     partnerInfo: {
-      deeplink: `${generateDeeplinkConfig.data.generateDeeplinkUrl}?partnerTxnRef=${partnerTxnRef}&miniAppUUID=${generateDeeplinkConfig.data?.miniappUUID}&destination=miniapp`,
+      deeplink: `${generateDeeplinkConfig.data.deeplinkUrl}?partnerTxnRef=${partnerTxnRef}&miniAppUUID=${generateDeeplinkConfig.data?.miniappUUID}&destination=miniapp`,
     },
   });
 
