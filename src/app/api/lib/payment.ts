@@ -1,11 +1,18 @@
-import { LibError } from "../error/lib-error";
+import { LibError } from "./error/lib-error";
 import {
   generateDeeplinkConfigSchema,
   GenerateDeeplinkRequest,
   GenerateDeeplinkResponse,
-} from "../type/generate-deeplink.type";
-import { paymentTransactionSchema } from "../type/payment.type";
-import { getToken } from "./get-token";
+} from "./type/generate-deeplink.type";
+import { paymentTransactionSchema } from "./type/payment.type";
+
+import {
+  inquiryTransactionConfigSchema,
+  inquiryTransactionRequestSchema,
+  InquiryTransactionResponse,
+} from "./type/inquiry-transaction.type";
+
+import { getTokenConfigSchema, GetTokenResponse } from "./type/get-token.type";
 
 export const generateDeeplink = async (
   req: GenerateDeeplinkRequest
@@ -102,5 +109,121 @@ export const generateDeeplink = async (
       throw error;
     }
     throw new LibError(`generate deeplink error: ${error}`, "LB9999", error);
+  }
+};
+
+export const inquiryTransaction = async (txnRefId: string) => {
+  try {
+    const token = await getToken();
+
+    const config = inquiryTransactionConfigSchema.safeParse({
+      inquiryTransactionUrl: process.env.URL_PAYMENT_INQUIRY_TRANSACTION_URL,
+      accessToken: token.data?.access_token,
+    });
+
+    if (!config.success) {
+      throw new LibError(config.error.message, "LB400", config.error);
+    }
+
+    const requestData = inquiryTransactionRequestSchema.safeParse({
+      txnRefId,
+    });
+    if (!requestData.success) {
+      throw new LibError(requestData.error.message, "LB400", requestData.error);
+    }
+
+    const rawResponse = await fetch(
+      `${config.data.inquiryTransactionUrl}/${requestData.data?.txnRefId}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: config.data.accessToken,
+        },
+      }
+    );
+
+    if (rawResponse.status !== 200) {
+      try {
+        const res = (await rawResponse.json()) as InquiryTransactionResponse;
+
+        throw new LibError(
+          res.status?.description ??
+            res.message ??
+            `fail to inquiry transaction: ${
+              rawResponse.status
+            } ${JSON.stringify(res)}`,
+          res.status?.code ?? res.code ?? "LB9999"
+        );
+      } catch (err) {
+        throw new LibError(
+          `fail to inquiry transaction: ${rawResponse.status} ${err}`,
+          "LB9999",
+          err
+        );
+      }
+    }
+
+    const inquiryTransactionResponse =
+      (await rawResponse.json()) as InquiryTransactionResponse;
+
+    return inquiryTransactionResponse;
+  } catch (error) {
+    if (error instanceof LibError) {
+      throw error;
+    }
+    throw new LibError(`inquiry transaction error: ${error}`, "LB9999", error);
+  }
+};
+
+const getToken = async (): Promise<GetTokenResponse> => {
+  const config = getTokenConfigSchema.safeParse({
+    getTokenUrl: process.env.URL_PAYMENT_GET_TOKEN,
+    clientId: process.env.TWO_LEGGED_CLIENT_ID,
+    clientSecret: process.env.TWO_LEGGED_SECRET_KEY,
+  });
+
+  if (!config.success) {
+    throw new LibError(config.error.message, "LB400", config.error);
+  }
+
+  const form = new URLSearchParams();
+  form.append("client_id", config.data.clientId);
+  form.append("client_secret", config.data.clientSecret);
+
+  try {
+    const rawResponse = await fetch(config.data.getTokenUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+      },
+      body: form,
+    });
+
+    if (rawResponse.status !== 200) {
+      try {
+        const res = await rawResponse.json();
+
+        throw new LibError(
+          res.message ||
+            `fail to get token: ${rawResponse.status} ${JSON.stringify(res)}`,
+          res.code ?? "LB9999"
+        );
+      } catch (err) {
+        throw new LibError(
+          `fail to get token: ${rawResponse.status} ${err}`,
+          "LB9999",
+          err
+        );
+      }
+    }
+
+    const getTokenResponse = (await rawResponse.json()) as GetTokenResponse;
+    return getTokenResponse;
+  } catch (error) {
+    if (error instanceof LibError) {
+      throw error;
+    }
+    throw new LibError(`get token error: ${error}`, "LB9999", error);
   }
 };

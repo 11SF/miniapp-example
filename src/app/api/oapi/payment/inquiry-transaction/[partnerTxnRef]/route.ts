@@ -1,6 +1,6 @@
 import { LibError } from "@/app/api/lib/error/lib-error";
 import { transactionStorage } from "@/app/api/lib/mock-storage";
-import { inquiryTransaction } from "@/app/api/lib/payment/inquiry-transaction";
+import { inquiryTransaction } from "@/app/api/lib/payment";
 import { responseError, responseSuccess } from "@/app/api/lib/response";
 
 export async function POST(

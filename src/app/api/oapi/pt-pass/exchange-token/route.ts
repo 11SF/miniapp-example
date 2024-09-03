@@ -1,5 +1,5 @@
 import { LibError } from "@/app/api/lib/error/lib-error";
-import { exchangeToken } from "@/app/api/lib/pt-pass/exchange-token";
+import { exchangeToken } from "@/app/api/lib/pt-pass";
 import { responseError, responseSuccess } from "@/app/api/lib/response";
 import { ExchangeTokenRequest, ExchangeTokenResponse } from "./type";
 
