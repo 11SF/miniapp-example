@@ -1,6 +1,10 @@
 import { CustomerProfile } from "@/lib/backend/type/get-customer-profile.type";
 import { commonAPIResponse } from "./common";
 
+export interface ExchangeTokenRequest {
+  code: string;
+}
+
 export interface ExchangeTokenResponse extends commonAPIResponse {
   data?: ExchangeTokenResponseData;
 }

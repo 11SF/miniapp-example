@@ -1,17 +1,16 @@
 import axios from "axios";
 import { LibError } from "../../error/lib-error";
-import {
-  ExchangeTokenResponse,
-  ExchangeTokenResponseData,
-  GetCustomerProfileResponse,
-  GetCustomerProfileResponseData,
-} from "./type/pt-pass.type";
-
+import { GetCustomerProfileResponse } from "@/lib/backend/type/get-customer-profile.type";
 import {
   GenerateDeeplinkRequest,
-  GenerateDeeplinkResponse,
   GenerateDeeplinkResponseData,
-} from "./type/payment.type";
+  GenerateDeeplinkResponse,
+} from "@/types/payment";
+import {
+  ExchangeTokenResponseData,
+  ExchangeTokenResponse,
+  GetCustomerProfileResponseData,
+} from "@/types/pt-pass";
 
 export const httpExchangeToken = async (
   authorizationCode: string
@@ -83,5 +82,26 @@ export const httpGenerateDeeplink = async (
       throw error;
     }
     throw new LibError(`generate deeplink error: ${error}`, "LB9999", error);
+  }
+};
+
+export const httpInquiryTransaction = async (
+  txnRefId: string
+): Promise<any> => {
+  try {
+    const result = await axios.post<any>("/api/payment/inquiry-transaction", {
+      txnRefId,
+    });
+
+    if (result.data.code !== "0000" || !result.data.data) {
+      throw new LibError(result.data.message, result.data.code);
+    }
+
+    return result.data.data;
+  } catch (error) {
+    if (error instanceof LibError) {
+      throw error;
+    }
+    throw new LibError(`inquiry transaction error: ${error}`, "LB9999", error);
   }
 };

@@ -1,9 +1,12 @@
 import { transactionStorage } from "@/app/api/mock-storage";
-import { responseError, responseSuccess } from "@/lib/backend/response";
+import { responseError, responseSuccess } from "@/app/api/response";
 import { GenerateDeeplinkRequest as GenerateDeeplinkRequestLib } from "@/lib/backend/type/generate-deeplink.type";
 import { LibError } from "@/lib/error/lib-error";
-import { GenerateDeeplinkRequest, GenerateDeeplinkResponseData } from "./type";
 import { generateDeeplink } from "@/lib/backend";
+import {
+  GenerateDeeplinkRequest,
+  GenerateDeeplinkResponseData,
+} from "@/types/payment";
 
 export async function POST(request: Request) {
   const req = (await request.json()) as GenerateDeeplinkRequest;

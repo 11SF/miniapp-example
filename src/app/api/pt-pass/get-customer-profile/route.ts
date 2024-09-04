@@ -1,5 +1,5 @@
 import { getCustomerProfile } from "@/lib/backend/pt-pass";
-import { responseError, responseSuccess } from "@/lib/backend/response";
+import { responseError, responseSuccess } from "@/app/api/response";
 import { LibError } from "@/lib/error/lib-error";
 
 export async function POST(request: Request) {

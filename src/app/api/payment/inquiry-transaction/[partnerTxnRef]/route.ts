@@ -1,7 +1,8 @@
 import { transactionStorage } from "@/app/api/mock-storage";
 import { inquiryTransaction } from "@/lib/backend";
-import { responseError, responseSuccess } from "@/lib/backend/response";
+import { responseError, responseSuccess } from "@/app/api/response";
 import { LibError } from "@/lib/error/lib-error";
+import { InquiryTransactionResponseData } from "@/types/payment";
 
 export async function POST(
   request: Request,
@@ -24,7 +25,19 @@ export async function POST(
     */
     const inquiryTransactionResponse = await inquiryTransaction(txnRefId);
 
-    return responseSuccess(inquiryTransactionResponse);
+    const response: InquiryTransactionResponseData = {
+      txnRefId: inquiryTransactionResponse.txnRefId ?? "-",
+      partnerTxnCreatedDt:
+        inquiryTransactionResponse.partnerTxnCreatedDt ?? "-",
+      txnSessionValidUntil:
+        inquiryTransactionResponse.txnSessionValidUntil ?? "-",
+      txnStatus: inquiryTransactionResponse.txnStatus ?? "-",
+      paymentInfo: inquiryTransactionResponse.paymentInfo ?? ({} as any),
+      additionalInfo: inquiryTransactionResponse.additionalInfo ?? ({} as any),
+      partnerInfo: inquiryTransactionResponse.partnerInfo ?? ({} as any),
+    };
+
+    return responseSuccess(response);
   } catch (error) {
     if (error instanceof LibError) {
       return responseError(error.code, error.message);

@@ -1,7 +1,10 @@
-import { responseError, responseSuccess } from "@/lib/backend/response";
-import { LibError } from "@/lib/error/lib-error";
-import { ExchangeTokenRequest, ExchangeTokenResponseData } from "./type";
 import { exchangeToken } from "@/lib/backend";
+import { responseError, responseSuccess } from "@/app/api/response";
+import { LibError } from "@/lib/error/lib-error";
+import {
+  ExchangeTokenRequest,
+  ExchangeTokenResponseData,
+} from "@/types/pt-pass";
 
 export async function POST(request: Request) {
   try {

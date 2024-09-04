@@ -1,10 +1,10 @@
+import { ExchangeTokenResponseData } from "@/types/pt-pass";
 import {
   httpExchangeToken,
   httpGenerateDeeplink,
   httpGetCustomerProfile,
 } from "./core/http";
 import { initAuth, openPwP } from "./core/js-bridge";
-import { ExchangeTokenResponseData } from "./core/type/pt-pass.type";
 
 export const initAuthAndExchangeToken = async (
   callback?: (result: ExchangeTokenResponseData) => void,
@@ -31,11 +31,12 @@ export const initAuthAndExchangeToken = async (
   );
 };
 
-export const getCustomerProfileWithAccessToken = async (accessToken: string) => {
+export const getCustomerProfileWithAccessToken = async (
+  accessToken: string
+) => {
   try {
-
     const result = await httpGetCustomerProfile(accessToken);
-    return result
+    return result;
   } catch (error) {
     console.error(error);
   }
@@ -46,6 +47,10 @@ export const generateDeeplinkAndOpenPwP = async (
 ) => {
   try {
     const result = await httpGenerateDeeplink({
+      /*
+        In this example, we only use the `amount` field. 
+        You can add other fields as needed in the `src/types/payment.ts` file
+      */
       amount: 1.5,
     });
 
