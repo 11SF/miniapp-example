@@ -1,12 +1,12 @@
-import { transactionStorage } from "@/app/api/mock-storage";
 import { responseError, responseSuccess } from "@/app/api/response";
+import { generateDeeplinkService } from "@/lib/backend";
 import { GenerateDeeplinkRequest as GenerateDeeplinkRequestLib } from "@/lib/backend/type/generate-deeplink.type";
 import { LibError } from "@/lib/error/lib-error";
-import { generateDeeplink } from "@/lib/backend";
 import {
   GenerateDeeplinkRequest,
   GenerateDeeplinkResponseData,
 } from "@/types/payment";
+import { addTransaction } from "../../mock-storage";
 
 export async function POST(request: Request) {
   const req = (await request.json()) as GenerateDeeplinkRequest;
@@ -25,17 +25,14 @@ export async function POST(request: Request) {
       },
     };
 
-    const generateDeeplinkResponse = await generateDeeplink(txn);
+    const generateDeeplinkResponse = await generateDeeplinkService(txn);
 
     /*
       Example to handle the response.
       You should save the txnRefId and partnerTxnRef to your storage for inquiry transaction status.
       In this example, we uses the mock storage to save the transaction.
     */
-    transactionStorage.set(
-      partnerTxnRef,
-      generateDeeplinkResponse.txnRefId ?? "-"
-    );
+    addTransaction(partnerTxnRef, generateDeeplinkResponse.txnRefId ?? "-");
 
     const response: GenerateDeeplinkResponseData = {
       txnRefId: generateDeeplinkResponse.txnRefId ?? "-",

@@ -29,7 +29,7 @@ import {
   GetCustomerProfileResponse,
 } from "./type/get-customer-profile.type";
 
-export const exchangeToken = async (
+export const exchangeTokenService = async (
   req: ExchangeTokenRequest
 ): Promise<ExchangeTokenResponse> => {
   const config = exchangeTokenConfigSchema.safeParse({
@@ -87,7 +87,7 @@ export const exchangeToken = async (
   }
 };
 
-export const getCustomerProfile = async (
+export const getCustomerProfileService = async (
   accessToken: string
 ): Promise<GetCustomerProfileResponse> => {
   const config = getCustomerProfileConfigSchema.safeParse({

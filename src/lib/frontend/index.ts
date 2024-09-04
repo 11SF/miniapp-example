@@ -1,8 +1,10 @@
+import { InquiryTransactionResponseData } from "@/types/payment";
 import { ExchangeTokenResponseData } from "@/types/pt-pass";
 import {
   httpExchangeToken,
   httpGenerateDeeplink,
   httpGetCustomerProfile,
+  httpInquiryTransaction,
 } from "./core/http";
 import { initAuth, openPwP } from "./core/js-bridge";
 
@@ -35,8 +37,7 @@ export const getCustomerProfileWithAccessToken = async (
   accessToken: string
 ) => {
   try {
-    const result = await httpGetCustomerProfile(accessToken);
-    return result;
+    return await httpGetCustomerProfile(accessToken);
   } catch (error) {
     console.error(error);
   }
@@ -58,4 +59,15 @@ export const generateDeeplinkAndOpenPwP = async (
   } catch (error) {
     console.error(error);
   }
+};
+
+export const inquiryTransaction = async (
+  partnerTxnRef: string
+): Promise<InquiryTransactionResponseData | undefined> => {
+  try {
+    return await httpInquiryTransaction(partnerTxnRef);
+  } catch (error) {
+    console.error(error);
+  }
+  return undefined;
 };

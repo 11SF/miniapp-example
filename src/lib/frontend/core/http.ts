@@ -1,16 +1,18 @@
-import axios from "axios";
-import { LibError } from "../../error/lib-error";
 import { GetCustomerProfileResponse } from "@/lib/backend/type/get-customer-profile.type";
 import {
   GenerateDeeplinkRequest,
-  GenerateDeeplinkResponseData,
   GenerateDeeplinkResponse,
+  GenerateDeeplinkResponseData,
+  InquiryTransactionResponse,
+  InquiryTransactionResponseData,
 } from "@/types/payment";
 import {
-  ExchangeTokenResponseData,
   ExchangeTokenResponse,
+  ExchangeTokenResponseData,
   GetCustomerProfileResponseData,
 } from "@/types/pt-pass";
+import axios from "axios";
+import { LibError } from "../../error/lib-error";
 
 export const httpExchangeToken = async (
   authorizationCode: string
@@ -86,18 +88,18 @@ export const httpGenerateDeeplink = async (
 };
 
 export const httpInquiryTransaction = async (
-  txnRefId: string
-): Promise<any> => {
+  partnerTxnRef: string
+): Promise<InquiryTransactionResponseData> => {
   try {
-    const result = await axios.post<any>("/api/payment/inquiry-transaction", {
-      txnRefId,
-    });
+    const result = await axios.post<InquiryTransactionResponse>(
+      `/api/payment/inquiry-transaction/${partnerTxnRef}`
+    );
 
     if (result.data.code !== "0000" || !result.data.data) {
       throw new LibError(result.data.message, result.data.code);
     }
 
-    return result.data.data;
+    return result.data.data as InquiryTransactionResponseData
   } catch (error) {
     if (error instanceof LibError) {
       throw error;

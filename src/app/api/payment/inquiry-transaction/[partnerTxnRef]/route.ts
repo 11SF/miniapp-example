@@ -1,6 +1,6 @@
-import { transactionStorage } from "@/app/api/mock-storage";
-import { inquiryTransaction } from "@/lib/backend";
+import { getTransaction } from "@/app/api/mock-storage";
 import { responseError, responseSuccess } from "@/app/api/response";
+import { inquiryTransactionService } from "@/lib/backend";
 import { LibError } from "@/lib/error/lib-error";
 import { InquiryTransactionResponseData } from "@/types/payment";
 
@@ -14,7 +14,7 @@ export async function POST(
     GUILD: Before calling the inquiry transaction, retrieve the txnRefId from storage, 
            as it is required as a parameter for the inquiry transaction.
   */
-  const txnRefId = transactionStorage.get(partnerTxnRef);
+  const txnRefId = getTransaction(partnerTxnRef);
   if (!txnRefId) {
     return responseError("CL404", "transaction not found");
   }
@@ -23,7 +23,9 @@ export async function POST(
     /*
       Example of how to use the functions from the lib/backend/index.ts
     */
-    const inquiryTransactionResponse = await inquiryTransaction(txnRefId);
+    const inquiryTransactionResponse = await inquiryTransactionService(
+      txnRefId
+    );
 
     const response: InquiryTransactionResponseData = {
       txnRefId: inquiryTransactionResponse.txnRefId ?? "-",

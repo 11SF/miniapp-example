@@ -1,5 +1,5 @@
-import { exchangeToken } from "@/lib/backend";
 import { responseError, responseSuccess } from "@/app/api/response";
+import { exchangeTokenService } from "@/lib/backend";
 import { LibError } from "@/lib/error/lib-error";
 import {
   ExchangeTokenRequest,
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const reqBody = (await request.json()) as ExchangeTokenRequest;
 
     //Example of how to use the functions from the lib/backend/index.ts
-    const exchangeTokenResponse = await exchangeToken({
+    const exchangeTokenResponse = await exchangeTokenService({
       code: reqBody.code,
     });
 

@@ -1,5 +1,5 @@
-import { getCustomerProfile } from "@/lib/backend/pt-pass";
 import { responseError, responseSuccess } from "@/app/api/response";
+import { getCustomerProfileService } from "@/lib/backend/pt-pass";
 import { LibError } from "@/lib/error/lib-error";
 
 export async function POST(request: Request) {
@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const accessToken = request.headers.get("Authorization") ?? "";
 
     //Example of how to use the functions from the lib/backend/index.ts
-    const customerProfile = await getCustomerProfile(accessToken);
+    const customerProfile = await getCustomerProfileService(accessToken);
 
     return responseSuccess(customerProfile.data);
   } catch (error) {

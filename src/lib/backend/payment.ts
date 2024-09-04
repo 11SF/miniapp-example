@@ -32,11 +32,11 @@ import {
 
 import { getTokenConfigSchema, GetTokenResponse } from "./type/get-token.type";
 
-export const generateDeeplink = async (
+export const generateDeeplinkService = async (
   req: GenerateDeeplinkRequest
 ): Promise<GenerateDeeplinkResponse> => {
   try {
-    const token = await getToken();
+    const token = await getTokenService();
 
     const config = generateDeeplinkConfigSchema.safeParse({
       generateDeeplinkUrl: process.env.URL_PAYMENT_DEEPLINK,
@@ -128,9 +128,9 @@ export const generateDeeplink = async (
   }
 };
 
-export const inquiryTransaction = async (txnRefId: string) => {
+export const inquiryTransactionService = async (txnRefId: string) => {
   try {
-    const token = await getToken();
+    const token = await getTokenService();
 
     const config = inquiryTransactionConfigSchema.safeParse({
       inquiryTransactionUrl: process.env.URL_PAYMENT_INQUIRY_TRANSACTION_URL,
@@ -192,7 +192,7 @@ export const inquiryTransaction = async (txnRefId: string) => {
   }
 };
 
-const getToken = async (): Promise<GetTokenResponse> => {
+const getTokenService = async (): Promise<GetTokenResponse> => {
   const config = getTokenConfigSchema.safeParse({
     getTokenUrl: process.env.URL_PAYMENT_GET_TOKEN,
     clientId: process.env.TWO_LEGGED_CLIENT_ID,
