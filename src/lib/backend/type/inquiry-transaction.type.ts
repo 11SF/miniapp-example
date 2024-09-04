@@ -7,7 +7,7 @@ export const inquiryTransactionConfigSchema = z.object({
         "URL_PAYMENT_INQUIRY_TRANSACTION is not defined in environment variable",
     })
     .url({ message: "URL_PAYMENT_INQUIRY_TRANSACTION is not a valid URL" }),
-  accessToken: z.string().startsWith("Bearer "),
+  accessToken: z.string(),
 });
 
 export const inquiryTransactionRequestSchema = z.object({

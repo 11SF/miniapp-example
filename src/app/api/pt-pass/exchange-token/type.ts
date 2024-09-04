@@ -2,7 +2,7 @@ export interface ExchangeTokenRequest {
   code: string;
 }
 
-export interface ExchangeTokenResponse {
+export interface ExchangeTokenResponseData {
   accessToken: string;
   refreshToken: string;
 }

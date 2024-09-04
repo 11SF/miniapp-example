@@ -1,7 +1,9 @@
 import { z } from "zod";
 
 export const getCustomerProfileRequestSchema = z.object({
-  accessToken: z.string({ message: "missing access token" }),
+  accessToken: z
+    .string({ message: "missing access token" })
+    .startsWith("Bearer "),
 });
 
 export const getCustomerProfileConfigSchema = z.object({

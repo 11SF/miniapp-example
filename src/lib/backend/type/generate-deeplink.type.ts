@@ -6,11 +6,12 @@ export const generateDeeplinkConfigSchema = z.object({
       message: "URL_PAYMENT_DEEPLINK is not defined in environment variable",
     })
     .url({ message: "URL_PAYMENT_DEEPLINK is not a valid URL" }),
-  accessToken: z.string().startsWith("Bearer "),
+  accessToken: z.string(),
   miniappUUID: z.string().uuid(),
   deeplinkUrl: z.string().url(),
   compCode: z.string({
-    message: "PAYMENT_TXN_CONFIG_COMP_CODE is not defined in environment variable",
+    message:
+      "PAYMENT_TXN_CONFIG_COMP_CODE is not defined in environment variable",
   }),
 });
 

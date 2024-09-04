@@ -93,6 +93,7 @@ export const getCustomerProfile = async (
   const config = getCustomerProfileConfigSchema.safeParse({
     getCustomerProfileUrl: process.env.URL_GET_CUSTOMER_PROFILE,
   });
+
   if (!config.success) {
     throw new LibError(config.error.message, "LB400", config.error);
   }
@@ -113,8 +114,10 @@ export const getCustomerProfile = async (
     });
 
     if (rawResponse.status !== 200) {
-      const res = (await rawResponse.json()) as GetCustomerProfileResponse;
+      const res = (await rawResponse.json())
 
+      console.log(res);
+      
       throw new LibError(res.message, res.code);
     }
 
@@ -123,6 +126,9 @@ export const getCustomerProfile = async (
 
     return customerProfile;
   } catch (error) {
+    if (error instanceof LibError) {
+      throw error;
+    }
     throw new LibError(`get customer profile error: ${error}`, "LB9999", error);
   }
 };

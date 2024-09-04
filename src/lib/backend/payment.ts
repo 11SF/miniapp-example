@@ -40,7 +40,7 @@ export const generateDeeplink = async (
 
     const config = generateDeeplinkConfigSchema.safeParse({
       generateDeeplinkUrl: process.env.URL_PAYMENT_DEEPLINK,
-      accessToken: token.data?.access_token,
+      accessToken: `Bearer ${token.data?.access_token}`,
       miniappUUID: process.env.MINIAPP_UUID,
       deeplinkUrl: process.env.PAYMENT_TXN_CONFIG_DEEPLINK_URL,
       compCode: process.env.PAYMENT_TXN_CONFIG_COMP_CODE,
@@ -90,8 +90,6 @@ export const generateDeeplink = async (
       method: "POST",
       headers: {
         "content-type": "application/json;charset=UTF-8",
-        "oapi-client-id": process.env.TWO_LEGGED_CLIENT_ID ?? "", //mock
-        "oapi-partner-id": "f6cac73f-3d82-4f3a-a74f-ebf5804c0683", //mock
         Authorization: config.data.accessToken,
       },
       body: JSON.stringify(txn.data),
@@ -136,7 +134,7 @@ export const inquiryTransaction = async (txnRefId: string) => {
 
     const config = inquiryTransactionConfigSchema.safeParse({
       inquiryTransactionUrl: process.env.URL_PAYMENT_INQUIRY_TRANSACTION_URL,
-      accessToken: token.data?.access_token,
+      accessToken: `Bearer ${token.data?.access_token}`,
     });
 
     if (!config.success) {
