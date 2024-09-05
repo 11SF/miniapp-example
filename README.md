@@ -137,5 +137,4 @@ Deploying your Mini App to Vercel is simple and quick. Just follow these steps:
 
    ![dashboard](./instruction/deploy-to-vercel/5.png)
 
-
 By following these steps, you can easily deploy your Mini App to Vercel and make it accessible to users. For more detailed information on deploying projects to Vercel, visit the [Vercel Documentation](https://vercel.com/docs).
