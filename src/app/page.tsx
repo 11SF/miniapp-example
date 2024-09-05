@@ -25,7 +25,7 @@ export default function Home() {
       {
         //Example of how to use the functions from the lib/frontend/index.ts
       }
-      <button
+      {/* <button
         onClick={() =>
           generateDeeplinkAndOpenPwP((errorCode, errorDescription) => {
             console.error(errorCode, errorDescription);
@@ -61,7 +61,7 @@ export default function Home() {
         }}
       >
         Get Customer Profile
-      </button>
+      </button> */}
     </div>
   );
 }
