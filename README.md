@@ -1,23 +1,23 @@
-# Mini App Sample Project
+# Mini App Example Project
 
 ## Getting Started
 
-This project is a Mini App sample project based on [Next.js](https://nextjs.org/) and styled with [Tailwind CSS](https://tailwindcss.com/).
+This project is a Mini App Example project based on [Next.js](https://nextjs.org/) and styled with [Tailwind CSS](https://tailwindcss.com/).
 
 ### Prerequisites
 
-Before running the Mini App sample, make sure you have the following software installed:
+Before running the Mini App Example, make sure you have the following software installed:
 
 - [Node.js](https://nodejs.org/)
 - Choose one of the following package managers: [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), [pnpm](https://pnpm.io/), or [bun](https://bun.sh/)
 
 ### Setting Up the Development Environment
 
-1. **Clone the Sample Repository**
+1. **Clone the example Repository**
 
    ```bash
    git clone https://github.com/paotang-miniapp/miniapp-example
-   cd miniapp-sample-repo
+   cd miniapp-example
    ```
 
 2. **Install Dependencies**
@@ -32,7 +32,7 @@ Before running the Mini App sample, make sure you have the following software in
    bun install
    ```
 
-3. **Run the Mini App Sample**
+3. **Run the Mini App Example**
 
    ```bash
    npm run dev
@@ -54,7 +54,7 @@ During development, if you need to debug your application within the Mini App we
 
 #### Step-by-Step Guide
 
-1. **Run the Mini App Sample**
+1. **Run the Mini App Example**
 
    Start the development server:
 
@@ -121,7 +121,7 @@ Before using JSBridge functions, you need to set up JSBridge in your Mini App pr
 
 #### Using JSBridge Functions
 
-We have prepared the core functions for calling `initAuth` in the [JSBridge Specifications](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications#initAuth). You can use these functions to integrate the JSBridge into your Mini App project.
+Here is an example function for calling initAuth in the JSBridge. It sets up callback functions for success and error handling, then triggers the authentication process via JSBridge for Android or webkit for iOS.
 
 ```typescript
 const initAuth = (
@@ -166,13 +166,11 @@ initAuth(
 );
 ```
 
-In this sample project, we demonstrate how to use `initAuth` for user authentication before accessing the app. We have created an `/init` page to handle the various logic for initializing authentication before entering the main app page.
+In this example project, we demonstrate how to use `initAuth` for user authentication before accessing the app. We have created an `/init` page to handle the various logic for initializing authentication before entering the main app page.
 
 Therefore, we need to set the Mini App Redirect URL to `https://<app-domain>/init` so that the Mini App webview opens this page first (which you might implement as a loading screen or splash screen).
 
 Once the `initAuth` process is successful, the system will redirect the user to the main page of the application with the `authorizationCode` received from `initAuth`.
-
-For more information on available JSBridge functions and specifications, please refer to the [Mini App JSBridge Documentation](https://ktbinnovation.atlassian.net/wiki/spaces/MA/pages/3498704972/JSBridge+Specifications).
 
 ### Easy Way to Deploy Your Mini App to Vercel
 
@@ -181,31 +179,29 @@ Deploying your Mini App to Vercel is simple and quick. Just follow these steps:
 1. **Login to Vercel**
    - Visit [Vercel](https://vercel.com/) and log in to your account.
 
-   ![login](./public/instruction/1.png)
+   ![login](./instruction/deploy-to-vercel/1.png)
 
 2. **Add a New Project**
    - Click on the "Add New" button.
    - Then click on the "Project" button to start a new project.
 
-   ![add new](./public/instruction/2.png)
+   ![add new](./instruction/deploy-to-vercel/2.png)
 
 3. **Select Your Repository**
    - Choose the repository. You can select from GitHub, GitLab, or Bitbucket.
    - Click on "Import" to proceed.
 
-   ![select repository](./public/instruction/3.png)
+   ![select repository](./instruction/deploy-to-vercel/3.png)
 
 4. **Configure Your Project**
    - Verify and configure your project settings.
    - Ensure all the settings are correct, then click "Deploy" to initiate the deployment.
 
-   ![config](./public/instruction/4.png)
+   ![config](./instruction/deploy-to-vercel/4.png)
 
 5. **View Your Deployed Mini App**
-   - After deployment, click on the provided preview URL to view your live Mini App.
+   - After deployment, click on the provided "Domains" URL to view your app.
 
-   ![dashboard](./public/instruction/5.png)
+   ![dashboard](./instruction/deploy-to-vercel/5.png)
 
-For more detailed information on deploying projects to Vercel, visit the [Vercel Documentation](https://vercel.com/docs).
-
-By following these steps, you can easily deploy your Mini App to Vercel and make it accessible to users.
+By following these steps, you can easily deploy your Mini App to Vercel and make it accessible to users. For more detailed information on deploying projects to Vercel, visit the [Vercel Documentation](https://vercel.com/docs).
