@@ -88,17 +88,19 @@ To start developing your Mini App, navigate to the `src/app` folder and begin ed
 
 ### Integrate with OAPI Services using Provided Functions
 
-In this project, we have prepared functions for working with PT Pass and Payment. These functions are located in the `src/lib/frontend/index.ts` file and include:
+In this project, we have prepared functions for working with OAPI Services. These functions are located in the `src/lib/frontend/index.ts` file and include:
+
+make sure to configure the environment variables in the .env file before using these functions.
 
 #### Authentication service
 
-1. `initAuthAndExchangeToken` - Calls jsbridge to perform `initAuth` and sends an API request to PT Pass to exchange a token.
+1. `initAuthAndExchangeToken` - Calls jsbridge `initAuth` with clientId and scope values from environment variables, and sends an API request to OAPI Services to exchange the token.
 2. `getCustomerProfileWithAccessToken` - Retrieves the customer profile using the access token obtained from the token exchange with PT Pass.
 
 #### Payment service
 
-1. `generateDeeplinkAndOpenPwP` - Creates a payment transaction and opens the payment page for completing the transaction.
-2. `inquiryTransaction` - Inquires about a transaction to check its status.
+1. `generateDeeplinkAndOpenPwP` - Get access token and initialize payment transaction and opens the payment flow for completing the transaction.
+2. `inquiryTransaction` - Get access token and inquiry the transaction status using the txnRefId
 
 These functions will invoke the APIs within this project, located in the `src/app/api` folder. Examples of API usage are provided and can be modified as needed. Additionally, we provide backend functions for integrating with OAPI services in the `src/lib/backend` folder, You can use these functions with your own services.
 

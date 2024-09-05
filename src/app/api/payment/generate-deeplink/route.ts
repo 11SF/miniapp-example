@@ -1,5 +1,5 @@
 import { responseError, responseSuccess } from "@/app/api/response";
-import { generateDeeplinkService } from "@/lib/backend";
+import { generateDeeplinkService, get2LeggedAccessToken } from "@/lib/backend";
 import { GenerateDeeplinkRequest as GenerateDeeplinkRequestLib } from "@/lib/backend/type/generate-deeplink.type";
 import { LibError } from "@/lib/error/lib-error";
 import {
@@ -13,6 +13,7 @@ export async function POST(request: Request) {
   const partnerTxnRef = Date.now().toString();
 
   try {
+    const token = await get2LeggedAccessToken();
     /*
       Example of how to use the functions from the lib/backend/index.ts
       you can override all fields of the transaction request object
@@ -25,7 +26,10 @@ export async function POST(request: Request) {
       },
     };
 
-    const generateDeeplinkResponse = await generateDeeplinkService(txn);
+    const generateDeeplinkResponse = await generateDeeplinkService(
+      token.data?.access_token ?? "",
+      txn
+    );
 
     /*
       Example to handle the response.

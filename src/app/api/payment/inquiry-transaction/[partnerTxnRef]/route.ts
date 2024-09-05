@@ -1,6 +1,9 @@
 import { getTransaction } from "@/app/api/mock-storage";
 import { responseError, responseSuccess } from "@/app/api/response";
-import { inquiryTransactionService } from "@/lib/backend";
+import {
+  get2LeggedAccessToken,
+  inquiryTransactionService,
+} from "@/lib/backend";
 import { LibError } from "@/lib/error/lib-error";
 import { InquiryTransactionResponseData } from "@/types/payment";
 
@@ -20,10 +23,13 @@ export async function POST(
   }
 
   try {
+    const token = await get2LeggedAccessToken();
+
     /*
       Example of how to use the functions from the lib/backend/index.ts
     */
     const inquiryTransactionResponse = await inquiryTransactionService(
+      token.data?.access_token ?? "",
       txnRefId
     );
 

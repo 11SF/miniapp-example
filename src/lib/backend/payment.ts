@@ -33,14 +33,13 @@ import {
 import { getTokenConfigSchema, GetTokenResponse } from "./type/get-token.type";
 
 export const generateDeeplinkService = async (
+  accessToken: string,
   req: GenerateDeeplinkRequest
 ): Promise<GenerateDeeplinkResponse> => {
   try {
-    const token = await getTokenService();
-
     const config = generateDeeplinkConfigSchema.safeParse({
       generateDeeplinkUrl: process.env.URL_PAYMENT_DEEPLINK,
-      accessToken: `Bearer ${token.data?.access_token}`,
+      accessToken: `Bearer ${accessToken}`,
       miniappUUID: process.env.MINIAPP_UUID,
       deeplinkUrl: process.env.PAYMENT_TXN_CONFIG_DEEPLINK_URL,
       compCode: process.env.PAYMENT_TXN_CONFIG_COMP_CODE,
@@ -128,13 +127,14 @@ export const generateDeeplinkService = async (
   }
 };
 
-export const inquiryTransactionService = async (txnRefId: string) => {
+export const inquiryTransactionService = async (
+  accessToken: string,
+  txnRefId: string
+) => {
   try {
-    const token = await getTokenService();
-
     const config = inquiryTransactionConfigSchema.safeParse({
       inquiryTransactionUrl: process.env.URL_PAYMENT_INQUIRY_TRANSACTION_URL,
-      accessToken: `Bearer ${token.data?.access_token}`,
+      accessToken: `Bearer ${accessToken}`,
     });
 
     if (!config.success) {
@@ -192,7 +192,7 @@ export const inquiryTransactionService = async (txnRefId: string) => {
   }
 };
 
-const getTokenService = async (): Promise<GetTokenResponse> => {
+export const get2LeggedAccessToken = async (): Promise<GetTokenResponse> => {
   const config = getTokenConfigSchema.safeParse({
     getTokenUrl: process.env.URL_PAYMENT_GET_TOKEN,
     clientId: process.env.TWO_LEGGED_CLIENT_ID,
