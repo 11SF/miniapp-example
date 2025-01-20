@@ -1,7 +1,7 @@
 import JSBridgeProvider from "@/lib/frontend/JSBridgeProvider";
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css"
 import VConsoleWrapper from "@/components/VConsoleWrapper";
 
 const IBMPlexSans = IBM_Plex_Sans({
